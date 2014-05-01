@@ -1,0 +1,201 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          bootclockrandomization
+# Required-Start:    $local_fs $remote_fs $syslog
+# Required-Stop:     $local_fs $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# X-Start-Before:    tor sdwdate
+# Short-Description: Boot Clock Randomization
+# Description:       Change clock randomly between 5 and 180 seconds to past or future.
+### END INIT INFO
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+DESC="Boot Clock Randomization"
+NAME=bootclockrandomization
+SCRIPTNAME=/etc/init.d/$NAME
+DIR=/var/run/$NAME
+PIDFILE=$DIR/pid
+FAIL_FILE=$DIR/fail
+SUCCESS_FILE=$DIR/success
+LOG=/var/log/$NAME.log
+
+# Load the VERBOSE setting and other rcS variables
+. /lib/init/vars.sh
+
+# Define LSB log_* functions.
+# Depend on lsb-base (>= 3.2-14) to ensure that this file is present
+# and status_of_proc is working.
+. /lib/lsb/init-functions
+
+log() {
+   echo "$@" >> "${LOG}"
+}
+
+error_handler() {
+   local exit_code="$?"
+   touch "$FAIL_FILE"
+   log "ERROR: exit_code: $exit_code | BASH_COMMAND: $BASH_COMMAND"
+   log_failure_msg "ERROR: exit_code: $exit_code | BASH_COMMAND: $BASH_COMMAND"
+   exit 1
+}
+
+trap error_handler ERR
+
+# Create status directory
+if [ ! -d ${DIR} ]; then
+   mkdir ${DIR}
+   chmod --recursive 0755 ${DIR}
+   chown --recursive root:root ${DIR}
+fi
+
+# Create log file
+if [ ! -e $LOG ]; then
+   touch $LOG
+   chmod --recursive 0655 $LOG
+   chown --recursive root:root $LOG
+fi
+
+# Source configuration
+#. /etc/default/$NAME
+
+do_start () {
+   trap error_handler ERR
+
+   if [ -e "$FAIL_FILE" ]; then
+      rm -f "$FAIL_FILE"
+   fi
+   if [ -e "$SUCCESS_FILE" ]; then
+      rm -f "$SUCCESS_FILE"
+   fi
+
+   OLD_UNIXTIME="$(date +%s)"
+   OLD_TIME="$(date)"
+   OLD_TIME_NANOSECONDS="$(date +%s.%N)"
+
+   ## Get a random 0 or 1.
+   ## Will use this to decide to use plus or minus.
+   ##
+   ## Thanks to
+   ## http://linux.byexamples.com/archives/128/generating-random-numbers/
+   ZERO_OR_ONE="$(( 0+($(od -An -N2 -i /dev/random) )%(0+2) ))"
+
+   ## Create a random number between 5 and 180.
+   DELAY="$(( 5+($(od -An -N2 -i /dev/random) )%(175-0+1) ))"
+
+   ## Create a random number between 0 and 999999999.
+   ##
+   ## Thanks to
+   ## https://stackoverflow.com/questions/22887891/how-can-i-get-a-random-dev-random-number-between-0-and-999999999-in-bash
+   NANOSECONDS="$(shuf -i0-999999999 -n1 --random-source=/dev/random)"
+
+   ## Examples NANOSECONDS:
+   ## 117752805
+   ## 38653957
+
+   ## Add leading zeros, because `date` expects 9 digits.
+   NANOSECONDS="$(printf '%0*d\n' 9 "$NANOSECONDS")"
+
+   ## Using
+   ## printf '%0*d\n' 9 "38653957"
+   ##  38653957
+   ## becomes
+   ## 038653957
+
+   ## Examples NANOSECONDS:
+   ## 117752805
+   ## 038653957
+
+   if [ "$ZERO_OR_ONE" = "0" ]; then
+      PLUS_OR_MINUS="-"
+   elif [ "$ZERO_OR_ONE" = "1" ]; then
+      PLUS_OR_MINUS="+"
+   else
+      touch "$FAIL_FILE"
+      log "ERROR: ZERO_OR_ONE is neither 0 nor 1, it's: $ZERO_OR_ONE"
+      log "       Please report this bug!"
+      return 2
+   fi
+
+   log "$PLUS_OR_MINUS $DELAY $NANOSECONDS"
+
+   NEW_TIME="$(( $OLD_UNIXTIME $PLUS_OR_MINUS $DELAY ))"
+
+   ## Set new time. Syntax: date --set @1396733199.112834496
+   date --set "@$NEW_TIME.$NANOSECONDS" > /dev/null
+
+   ## Testing the `date` syntax:
+   ## sudo date --set @1396733199.112834496 ; date +%s.%N
+   ## Sat Apr  5 21:26:39 UTC 2014
+   ## 1396733199.114119019
+   ## sudo date --set @1396733199.112834496 ; date +%s.%N
+   ## Sat Apr  5 21:26:39 UTC 2014
+   ## 1396733199.114122807
+
+   log "Changed time from $OLD_TIME ($OLD_TIME_NANOSECONDS)"
+   log "               to $(date) ($(date +%s.%N))."
+
+   touch "$SUCCESS_FILE"
+   return 0
+}
+
+do_stop() {
+   trap error_handler ERR
+
+   if [ -e "$FAIL_FILE" ]; then
+      rm -f "$FAIL_FILE"
+   fi
+   if [ -e "$SUCCESS_FILE" ]; then
+      rm -f "$SUCCESS_FILE"
+   fi
+   return 0
+}
+
+do_status () {
+   trap error_handler ERR
+
+   if [ -e "$SUCCESS_FILE" ]; then
+      log_success_msg "$NAME"
+      return 0
+   else
+      log_failure_msg "$NAME $SUCCESS_FILE does not exist"
+      return 1
+   fi
+}
+
+
+case "$1" in
+  start)
+	[ "$VERBOSE" != no ] && log_daemon_msg "$DESC" "$NAME"
+	do_start
+	case "$?" in
+		0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+		2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+	esac
+	;;
+  stop)
+	do_stop
+	;;
+  restart)
+	do_stop
+	do_start
+	;;
+  force-reload)
+	do_stop
+	do_start
+	;;
+  status)
+	do_status_return_code="0"
+	do_status || { do_status_return_code="$?" ; true; };
+	exit "$do_status_return_code"
+	;;
+  *)
+	echo "Usage: $SCRIPTNAME (start|stop|restart|force-reload|status)" >&2
+	exit 3
+	;;
+esac
+
+:
