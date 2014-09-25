@@ -72,10 +72,6 @@ do_start () {
       rm -f "$SUCCESS_FILE"
    fi
 
-   OLD_UNIXTIME="$(date +%s)"
-   OLD_TIME="$(date)"
-   OLD_TIME_NANOSECONDS="$(date +%s.%N)"
-
    ## Get a random 0 or 1.
    ## Will use this to decide to use plus or minus.
    ##
@@ -121,6 +117,10 @@ do_start () {
    fi
 
    log "$PLUS_OR_MINUS $DELAY $NANOSECONDS"
+
+   OLD_TIME="$(date)"
+   OLD_TIME_NANOSECONDS="$(date +%s.%N)"
+   OLD_UNIXTIME="$(date +%s)"
 
    NEW_TIME="$(( $OLD_UNIXTIME $PLUS_OR_MINUS $DELAY ))"
 
