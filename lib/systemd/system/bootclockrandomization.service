@@ -5,8 +5,8 @@
 [Unit]
 Description = Boot Clock Randomization
 Documentation = https://github.com/Whonix/bootclockrandomization
-Wants = sdwdate.service
-Wants = tor.service
+Before = sdwdate.service
+Before = tor.service
 
 [Service]
 Type = oneshot
