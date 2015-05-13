@@ -1,0 +1,89 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+set -e
+
+source /usr/share/bootclockrandomization/shared
+
+do_start () {
+   if [ -e "$FAIL_FILE" ]; then
+      rm -f "$FAIL_FILE"
+   fi
+   if [ -e "$SUCCESS_FILE" ]; then
+      rm -f "$SUCCESS_FILE"
+   fi
+
+   ## Get a random 0 or 1.
+   ## Will use this to decide to use plus or minus.
+   ##
+   ## Thanks to
+   ## http://linux.byexamples.com/archives/128/generating-random-numbers/
+   ZERO_OR_ONE="$(( 0+($(od -An -N2 -i /dev/random) )%(0+2) ))"
+
+   ## Create a random number between 5 and 180.
+   DELAY="$(( 5+($(od -An -N2 -i /dev/random) )%(175-0+1) ))"
+
+   ## Create a random number between 0 and 999999999.
+   ##
+   ## Thanks to
+   ## https://stackoverflow.com/questions/22887891/how-can-i-get-a-random-dev-random-number-between-0-and-999999999-in-bash
+   NANOSECONDS="$(shuf -i0-999999999 -n1 --random-source=/dev/random)"
+
+   ## Examples NANOSECONDS:
+   ## 117752805
+   ## 38653957
+
+   ## Add leading zeros, because `date` expects 9 digits.
+   NANOSECONDS="$(printf '%0*d\n' 9 "$NANOSECONDS")"
+
+   ## Using
+   ## printf '%0*d\n' 9 "38653957"
+   ##  38653957
+   ## becomes
+   ## 038653957
+
+   ## Examples NANOSECONDS:
+   ## 117752805
+   ## 038653957
+
+   if [ "$ZERO_OR_ONE" = "0" ]; then
+      PLUS_OR_MINUS="-"
+   elif [ "$ZERO_OR_ONE" = "1" ]; then
+      PLUS_OR_MINUS="+"
+   else
+      touch "$FAIL_FILE"
+      log "ERROR: ZERO_OR_ONE is neither 0 nor 1, it's: $ZERO_OR_ONE"
+      log "       Please report this bug!"
+      return 2
+   fi
+
+   log "$PLUS_OR_MINUS $DELAY $NANOSECONDS"
+
+   OLD_TIME="$(date)"
+   OLD_TIME_NANOSECONDS="$(date +%s.%N)"
+   OLD_UNIXTIME="$(date +%s)"
+
+   NEW_TIME="$(( $OLD_UNIXTIME $PLUS_OR_MINUS $DELAY ))"
+
+   ## Set new time. Syntax: date --set @1396733199.112834496
+   date --set "@$NEW_TIME.$NANOSECONDS" > /dev/null
+
+   ## Testing the `date` syntax:
+   ## sudo date --set @1396733199.112834496 ; date +%s.%N
+   ## Sat Apr  5 21:26:39 UTC 2014
+   ## 1396733199.114119019
+   ## sudo date --set @1396733199.112834496 ; date +%s.%N
+   ## Sat Apr  5 21:26:39 UTC 2014
+   ## 1396733199.114122807
+
+   log "Changed time from $OLD_TIME ($OLD_TIME_NANOSECONDS)"
+   log "               to $(date) ($(date +%s.%N))."
+
+   touch "$SUCCESS_FILE"
+   return 0
+}
+
+do_start

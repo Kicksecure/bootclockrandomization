@@ -1,0 +1,28 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+set -e
+set -o errtrace
+set -o pipefail
+
+NAME=bootclockrandomization
+DIR=/var/run/$NAME
+FAIL_FILE=$DIR/fail
+SUCCESS_FILE=$DIR/success
+LOG=/var/log/$NAME.log
+
+log() {
+   echo "$@" >> "${LOG}"
+}
+
+error_handler() {
+   local exit_code="$?"
+   touch "$FAIL_FILE"
+   log "ERROR: exit_code: $exit_code | BASH_COMMAND: $BASH_COMMAND"
+   exit 1
+}
+
+trap "error_handler" ERR

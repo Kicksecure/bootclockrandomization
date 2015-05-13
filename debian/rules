@@ -7,12 +7,9 @@
 #export DH_VERBOSE=1
 
 %:
-	dh $@
+	dh $@ --with systemd
 
 #APPARMOR_PROFILE_NAME=$(shell basename $$(echo ./debian/$(shell dh_listpackages)/etc/apparmor.d/*.*))
-
-override_dh_install:
-	dh_installinit --onlyscripts
 
 override_dh_installchangelogs:
 	dh_installchangelogs changelog.upstream upstream
