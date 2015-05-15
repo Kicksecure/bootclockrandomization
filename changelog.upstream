@@ -1,3 +1,35 @@
+commit 903063c6f3f82eaadb1e2d34a0c7e0e2e290a00a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 13 20:19:50 2015 +0000
+
+    fix, Wants -> Before
+
+commit fcc4a15c76f4e14cfc41e80d95a73597360374be
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 13 19:52:51 2015 +0000
+
+    systemd unit file, added:
+    Wants = sdwdate.service
+    Wants = tor.service
+
+commit 01fade8161c8d84a093a315deafe403bdaa23356
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 13 18:48:02 2015 +0000
+
+    cleanup
+
+commit 77d3e620017dd067e1660e7bebf582f042484c47
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 13 18:47:06 2015 +0000
+
+    ported to systemd - https://phabricator.whonix.org/T106
+
+commit a0be8ddf5dbdf44d930c8fa42c3a149cdb56831e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 30 17:56:13 2015 +0000
+
+    bumped changelog version
+
 commit f4d967a75d8cdf66cfcc3f73a7f7426e875383f9
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Apr 28 13:43:09 2015 +0000
