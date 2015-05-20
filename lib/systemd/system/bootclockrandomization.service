@@ -15,4 +15,4 @@ ExecStart = /usr/share/bootclockrandomization/start
 ExecStop = /usr/share/bootclockrandomization/stop
 
 [Install]
-WantedBy = multi-user.target
+WantedBy=multi-user.target
