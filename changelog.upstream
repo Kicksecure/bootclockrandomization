@@ -1,3 +1,15 @@
+commit faa7fa520679f1beb3401d4dbceb288c57e84660
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed May 20 15:35:46 2015 +0000
+
+    systemd unit: workaround/fix, removed spaces from 'WantedBy = ', likely bug in 'deb-systemd-helper' that prevents enabling the service by default - https://phabricator.whonix.org/T316
+
+commit fcb705d8b63ef2585f1cb7866a3331834dcfb988
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri May 15 20:25:25 2015 +0000
+
+    bumped changelog version
+
 commit 903063c6f3f82eaadb1e2d34a0c7e0e2e290a00a
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed May 13 20:19:50 2015 +0000
