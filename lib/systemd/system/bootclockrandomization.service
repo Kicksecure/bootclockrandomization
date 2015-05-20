@@ -3,16 +3,16 @@
 ## See the file COPYING for copying conditions.
 
 [Unit]
-Description = Boot Clock Randomization
-Documentation = https://github.com/Whonix/bootclockrandomization
-Before = sdwdate.service
-Before = tor.service
+Description=Boot Clock Randomization
+Documentation=https://github.com/Whonix/bootclockrandomization
+Before=sdwdate.service
+Before=tor.service
 
 [Service]
-Type = oneshot
-RemainAfterExit = yes
-ExecStart = /usr/share/bootclockrandomization/start
-ExecStop = /usr/share/bootclockrandomization/stop
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/share/bootclockrandomization/start
+ExecStop=/usr/share/bootclockrandomization/stop
 
 [Install]
 WantedBy=multi-user.target
