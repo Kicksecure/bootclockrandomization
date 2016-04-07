@@ -1,3 +1,19 @@
+commit add0177c2dda409c6f5dcf224d62469ac2d6d83f
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Mar 13 00:50:43 2016 +0000
+
+    no longer exclude +/- 5 seconds range to avoid fingerprinting negative correlation
+    
+    Thanks to @marmarek for the suggestion!
+    
+    https://github.com/QubesOS/qubes-issues/issues/1764#issuecomment-195619793
+
+commit cb72e2c46d9dfa0f818e5df2f23b18bb0c508d85
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Aug 25 14:07:56 2015 +0000
+
+    bumped changelog version
+
 commit bee7a5ae79b9aafebe17536f9612c3f6d9c4448c
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Aug 24 17:47:19 2015 +0000
