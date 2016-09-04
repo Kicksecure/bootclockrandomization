@@ -1,0 +1,48 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+set -e
+
+title="Manual Clock Randomization"
+
+date_start="$(date)"
+
+if user_input=$(zenity \
+   --entry \
+   --title="$title" \
+   --text="Please enter the time (in UTC!) in the following format.
+
+Example:
+$date_start" \
+   --entry-text "$date_start")
+  then \
+     true "zentry entry ok."
+else
+   type="info"
+   msg="<p>Ok, aborted.</p>"
+   /usr/lib/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$lefttop" "$icon"
+   exit 3
+fi
+
+if echo "$user_input" | sudo --non-interactive /usr/bin/clock-random-manual-cli ; then
+   date_end="$(date)"
+   type="info"
+   msg="<p>Success, date set from (user input):
+<br />$date_start
+<br />to (randomized):
+<br />$date_end.</p>"
+   /usr/lib/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$lefttop" "$icon"
+   exit 0
+else
+   type="error"
+   msg="<p>ERROR!
+<br />Please report this bug!
+<br />
+<br />Please open a console and use:
+<br /><blockquote><code>sudo /usr/bin/clock-random-manual-cli</code></blockquote></p>"
+   /usr/lib/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$lefttop" "$icon"
+   exit 1
+fi

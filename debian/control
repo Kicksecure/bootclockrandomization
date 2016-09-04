@@ -14,7 +14,7 @@ Standards-Version: 3.9.6
 
 Package: bootclockrandomization
 Architecture: all
-Depends: logrotate, ${misc:Depends}
+Depends: logrotate, msgcollector, ${misc:Depends}
 Description: Randomizes clock when systems boots
  Randomizes clock at boot time. Moves clock a few seconds and nanoseconds
  to past or future. Useful in context of anonymity/privacy/Tor.

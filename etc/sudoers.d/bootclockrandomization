@@ -4,3 +4,6 @@
 
 ## Required for whonixcheck.
 ALL ALL=NOPASSWD: /usr/sbin/service bootclockrandomization status
+
+user ALL=NOPASSWD: /usr/bin/clock-random-manual-cli *
+user ALL=NOPASSWD: /usr/bin/clock-random-manual-gui *
