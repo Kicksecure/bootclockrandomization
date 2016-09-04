@@ -1,0 +1,45 @@
+#!/bin/bash
+
+## This file is part of Whonix.
+## Copyright (C) 2012 - 2014 Patrick Schleizer <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+## test:
+## echo "Fri Sep  30 22:20:00 UTC 2016" | /usr/bin/clock-random-manual-cli
+
+set -e
+
+source /usr/share/bootclockrandomization/shared
+
+NAME=clock-random-manual
+DIR=/var/run/$NAME
+FAIL_FILE=$DIR/fail
+SUCCESS_FILE=$DIR/success
+LOG=/var/log/$NAME.log
+
+delay_plus_or_minus="30"
+
+mkdir -p "$DIR"
+
+echo "Enter current date. Example:
+Fri Sep  30 22:20:00 UTC 2016"
+
+read date_input_user
+
+## Example date_input:
+## Fri Sep  30 22:20:00 UTC 2016
+
+date_input_unixtime="$(date --date "$date_input_user" +%s)"
+
+log "input: $date_input_user 000000000"
+
+OLD_TIME="$date_input_unixtime"
+
+get_random_time
+
+log "output: $NEW_TIME_HUMAN $NANOSECONDS"
+
+## Set new time. Syntax: date --set @1396733199.112834496
+date --set "@$NEW_TIME.$NANOSECONDS" > /dev/null
+
+echo "Success, clock is now randomized!"
