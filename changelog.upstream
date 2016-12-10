@@ -1,3 +1,15 @@
+commit 022703f7413ff4fda845cfb5bf06bad44c4f6f1a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 10 01:52:30 2016 +0000
+
+    add clock-random-manual-cli / clock-random-manual-gui man pages
+
+commit 29f4eab19f3e88bda05142a8578f322956bbd3ea
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sat Dec 10 00:21:46 2016 +0000
+
+    bumped changelog version
+
 commit aeb8884392351b0852d23d87b509b826565de3b4
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Mon Nov 21 17:39:41 2016 +0000
