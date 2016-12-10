@@ -1,3 +1,33 @@
+commit aeb8884392351b0852d23d87b509b826565de3b4
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Nov 21 17:39:41 2016 +0000
+
+    readme
+
+commit 960fac3b8aa4724c46093859fbcc95d555cfb149
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Sep 4 19:58:15 2016 +0000
+
+    added clock-random-manual-gui tool to manually set the clock as fallback
+    
+    https://phabricator.whonix.org/T533
+
+commit 93367e59057c45533ceae51559a7bc5a80f87cfc
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Sep 4 18:51:37 2016 +0000
+
+    added clock-random-manual-cli tool to manually set the clock as fallback
+    
+    refactoring
+    
+    https://phabricator.whonix.org/T533
+
+commit 90619dc2d6154577dcacadaa3194e467c8aba4c2
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Mon Apr 25 23:27:54 2016 +0000
+
+    bumped changelog version
+
 commit b397954ff13e7a1a6891e381adc76ab4aee0fcb7
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Apr 20 04:23:30 2016 +0000
