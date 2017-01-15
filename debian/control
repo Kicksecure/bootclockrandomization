@@ -10,7 +10,7 @@ Build-Depends: debhelper (>= 9), faketime, genmkfile, dh-systemd, ruby-ronn (>= 
 Homepage: https://www.whonix.org/wiki/Dev/TimeSync
 Vcs-Browser: https://github.com/Whonix/bootclockrandomization
 Vcs-Git: https://github.com/Whonix/bootclockrandomization.git
-Standards-Version: 3.9.6
+Standards-Version: 3.9.8
 
 Package: bootclockrandomization
 Architecture: all
