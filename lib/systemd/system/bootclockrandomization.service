@@ -7,6 +7,7 @@ Description=Boot Clock Randomization
 Documentation=https://github.com/Whonix/bootclockrandomization
 Before=sdwdate.service
 Before=tor.service
+Before=tor@default.service
 
 [Service]
 Type=oneshot
