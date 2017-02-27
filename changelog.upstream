@@ -1,3 +1,17 @@
+commit 9bdf70894ee601ba356f744d3c420650677faf5a
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Feb 21 22:12:09 2017 +0000
+
+    remove no longer required sudoers exception
+    
+    https://phabricator.whonix.org/T637
+
+commit 670fd303410ebe3314214603464491570bfdbb1b
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Fri Feb 17 13:49:27 2017 +0000
+
+    bumped changelog version
+
 commit 65479ab7c8847c2cf948f56c723ed7f6a5ea70ab
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Feb 14 17:30:29 2017 +0000
