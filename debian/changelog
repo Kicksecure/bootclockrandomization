@@ -1,3 +1,9 @@
+bootclockrandomization (3:2.6-1) unstable; urgency=medium
+
+  * New upstream version (local package).
+
+ -- Patrick Schleizer <adrelanos@riseup.net>  Mon, 27 Aug 2018 15:58:43 +0000
+
 bootclockrandomization (3:2.5-1) unstable; urgency=medium
 
   * New upstream version (local package).
