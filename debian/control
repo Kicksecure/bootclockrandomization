@@ -5,11 +5,11 @@ Source: bootclockrandomization
 Section: misc
 Priority: optional
 Maintainer: Patrick Schleizer <adrelanos@riseup.net>
-Build-Depends: debhelper (>= 9), genmkfile, dh-systemd, ruby-ronn
+Build-Depends: debhelper (>= 12), genmkfile,  ronn
 Homepage: https://www.whonix.org/wiki/Dev/TimeSync
 Vcs-Browser: https://github.com/Whonix/bootclockrandomization
 Vcs-Git: https://github.com/Whonix/bootclockrandomization.git
-Standards-Version: 3.9.8
+Standards-Version: 4.3.0
 
 Package: bootclockrandomization
 Architecture: all
