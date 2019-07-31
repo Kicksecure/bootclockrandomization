@@ -8,7 +8,7 @@ set -o errtrace
 set -o pipefail
 
 NAME=bootclockrandomization
-DIR=/var/run/$NAME
+DIR=/run/$NAME
 FAIL_FILE=$DIR/fail
 SUCCESS_FILE=$DIR/success
 LOG=/var/log/$NAME.log

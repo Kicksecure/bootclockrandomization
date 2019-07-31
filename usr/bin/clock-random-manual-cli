@@ -11,7 +11,7 @@ set -e
 source /usr/share/bootclockrandomization/shared
 
 NAME=clock-random-manual
-DIR=/var/run/$NAME
+DIR=/run/$NAME
 FAIL_FILE=$DIR/fail
 SUCCESS_FILE=$DIR/success
 LOG=/var/log/$NAME.log
