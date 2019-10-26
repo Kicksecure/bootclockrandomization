@@ -3,7 +3,7 @@
 
 #include <tunables/global>
 
-profile bootclockrandomization /usr/share/bootclockrandomization/* {
+profile bootclockrandomization /usr/share/bootclockrandomization/* flags=(attach_disconnected) {
   #include <abstractions/base>
   #include <abstractions/bash>
 
