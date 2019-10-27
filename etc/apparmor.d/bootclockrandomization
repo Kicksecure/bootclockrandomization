@@ -1,0 +1,28 @@
+## Copyright (C) 2012 - 2018 ENCRYPTED SUPPORT LP <adrelanos@riseup.net>
+## See the file COPYING for copying conditions.
+
+#include <tunables/global>
+
+profile bootclockrandomization /usr/share/bootclockrandomization/* flags=(attach_disconnected) {
+  #include <abstractions/base>
+  #include <abstractions/bash>
+
+  capability sys_time,
+
+  /bin/bash ix,
+  /bin/date mrix,
+  /bin/rm mrix,
+  /bin/touch mrix,
+  /usr/bin/id mrix,
+  /usr/bin/od mrix,
+  /usr/bin/shuf mrix,
+
+  owner /etc/nsswitch.conf r,
+  owner /etc/passwd r,
+
+  owner /run/bootclockrandomization/{fail,success} w,
+  owner /usr/share/bootclockrandomization/* r,
+  owner /var/log/bootclockrandomization.log w,
+  
+  #include <local/bootclockrandomization>
+}
