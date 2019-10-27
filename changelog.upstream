@@ -1,3 +1,49 @@
+commit 7df1e5f58788e2db0dd43356ff39627b948f54e8
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 27 07:58:34 2019 +0000
+
+    apparmor debian packaging
+
+commit 3bcb83957a7ccf0ecaafe8cbef01c7833435c6a0
+Merge: 54431e7 79b553e
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 27 01:55:15 2019 -0400
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 79b553e15d7c34115c10699f2bf92fd25c814cca
+Merge: 54431e7 5ad08c3
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Sun Oct 27 05:55:00 2019 +0000
+
+    Merge pull request #1 from madaidan/apparmor
+    
+    Add AppArmor profile
+
+commit 5ad08c3209cfc62d18143c22176c8b59344ae2e6
+Author: madaidan <50278627+madaidan@users.noreply.github.com>
+Date:   Sat Oct 26 19:23:37 2019 +0000
+
+    Add attach_disconnected flag
+
+commit 10f0345dd5f42bb9cb6ca95a31a55bcdd18a3c50
+Author: madaidan <50278627+madaidan@users.noreply.github.com>
+Date:   Sat Oct 26 17:17:27 2019 +0000
+
+    Licensing
+
+commit e0bf335338ccadb1a864b58889a91091544ded8c
+Author: madaidan <50278627+madaidan@users.noreply.github.com>
+Date:   Sat Oct 26 17:02:35 2019 +0000
+
+    Add AppArmor profile
+
+commit 54431e71b37ab11f0d639c3daad7781e996625ac
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Wed Aug 28 11:39:11 2019 +0000
+
+    bumped changelog version
+
 commit 590892a080672d57ec419f9f9d90e2ae06c40a3b
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Wed Aug 28 11:35:09 2019 +0000
