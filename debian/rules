@@ -8,6 +8,10 @@
 %:
 	dh $@
 
+override_dh_install:
+	dh_apparmor --profile-name='bootclockrandomization'
+	dh_install
+
 override_dh_installman:
 	make manpages
 	dh_installman $(CURDIR)/debian/tmp-man/*
