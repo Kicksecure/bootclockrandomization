@@ -9,10 +9,16 @@ profile bootclockrandomization /usr/share/bootclockrandomization/* flags=(attach
 
   capability sys_time,
 
-  /bin/bash ix,
+  /bin/bash rix,
   /bin/date mrix,
   /bin/rm mrix,
   /bin/touch mrix,
+
+  /usr/bin/bash rix,
+  /usr/bin/date mrix,
+  /usr/bin/rm mrix,
+  /usr/bin/touch mrix,
+
   /usr/bin/id mrix,
   /usr/bin/od mrix,
   /usr/bin/shuf mrix,
@@ -23,6 +29,6 @@ profile bootclockrandomization /usr/share/bootclockrandomization/* flags=(attach
   owner /run/bootclockrandomization/{fail,success} w,
   owner /usr/share/bootclockrandomization/* r,
   owner /var/log/bootclockrandomization.log w,
-  
+
   #include <local/bootclockrandomization>
 }
