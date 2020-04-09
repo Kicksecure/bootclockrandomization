@@ -11,11 +11,9 @@ NAME=bootclockrandomization
 DIR=/run/$NAME
 FAIL_FILE=$DIR/fail
 SUCCESS_FILE=$DIR/success
-LOG=/var/log/$NAME.log
 
 log() {
    echo "$@"
-   echo "$@" >> "${LOG}" || true
 }
 
 error_handler() {
