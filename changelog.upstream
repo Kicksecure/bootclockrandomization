@@ -1,3 +1,19 @@
+commit ce70c45711c11aa285b0a259b4f5e38ead0542cb
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 9 10:47:35 2020 +0000
+
+    no more standalone log /var/run/bootclockrandomization.log
+    
+    logs now handled by systemd
+    
+    no longer depend on logrotate
+
+commit 150cda8871cfaa29e06a51f0dd318acffb74040c
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Thu Apr 2 07:40:26 2020 -0400
+
+    bumped changelog version
+
 commit 0c3c83a7136022a49850a16e4d4f1d070cf7d353
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Apr 2 07:22:24 2020 -0400
