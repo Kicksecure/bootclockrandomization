@@ -29,5 +29,7 @@ profile bootclockrandomization /usr/share/bootclockrandomization/* flags=(attach
   owner /run/bootclockrandomization/{fail,success} w,
   owner /usr/share/bootclockrandomization/* r,
 
+  /dev/tty rw,
+
   #include <local/bootclockrandomization>
 }
