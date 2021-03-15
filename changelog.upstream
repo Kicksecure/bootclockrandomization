@@ -1,3 +1,18 @@
+commit 5f442b60e145345b99eb55af6d751d8b44737e90
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Mar 15 06:41:08 2021 -0400
+
+    apparmor
+    
+    AVC apparmor="DENIED" operation="open" profile="bootclockrandomization" name="/dev/tty" comm="stop" requested_mask="wr" denied_mask="wr"
+    AVC apparmor="DENIED" operation="open" profile="bootclockrandomization" name="/dev/tty" comm="start" requested_mask="wr" denied_mask="wr"
+
+commit ec8b5d12540db671a02754b4b1d7eebc274fe07c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Feb 10 06:05:47 2021 -0500
+
+    bumped changelog version
+
 commit c3d8ea5b2790d97c7558a6f981c2249fd2911c81
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Feb 10 06:05:47 2021 -0500
