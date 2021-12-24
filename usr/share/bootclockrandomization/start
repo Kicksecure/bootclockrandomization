@@ -15,7 +15,7 @@ do_start () {
       rm -f "$SUCCESS_FILE"
    fi
 
-   delay_plus_or_minus="180"
+   : ${delay_plus_or_minus:="180"}
 
    get_random_time
 
