@@ -1,3 +1,37 @@
+commit 3b8bee042b57ae2b0945265bcac3a5b4b7e54063
+Merge: b7b2ccf b594c70
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 24 07:35:38 2021 -0500
+
+    Merge remote-tracking branch 'github-whonix/master'
+
+commit b594c70aca94270c461870fa650e424c4e3a725f
+Merge: b7b2ccf 1837346
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 24 07:35:00 2021 -0500
+
+    Merge pull request #2 from deeplow/delay-as-env-var
+    
+    Make delay_plus_or_minus overridable via env var
+
+commit 1837346b080132d3f7ca8dac81d13d489cfa2662
+Author: deeplow <deeplower@protonmail.com>
+Date:   Fri Dec 24 04:19:05 2021 -0500
+
+    Make delay_plus_or_minus overridable via env var
+
+commit b7b2ccf59b1c784dbc97206a8f78ecd96fc7ec63
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Nov 9 14:32:29 2021 -0500
+
+    readme
+
+commit cec998c5908516fe5ad2ecb9210ecca8b00a82b5
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Sep 11 18:38:13 2021 -0400
+
+    bumped changelog version
+
 commit ebb467ce5ad1b202d1d24b5ba2ae307632873296
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Sep 11 16:31:10 2021 -0400
