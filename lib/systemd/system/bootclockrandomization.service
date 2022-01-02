@@ -8,6 +8,9 @@ Before=sdwdate.service
 Before=tor.service
 Before=tor@default.service
 
+ConditionPathExists=!/run/qubes-service/no-bootclockrandomization
+ConditionPathExists=!/run/qubes-service/no-bcr
+
 ## systemd-nspawn does not allow clock to be changed inside the container.
 ## Quote https://www.freedesktop.org/software/systemd/man/systemd-nspawn.html
 ## The host’s network interfaces and the system clock may not be changed from within the container.
