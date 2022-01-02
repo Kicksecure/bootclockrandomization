@@ -1,3 +1,16 @@
+commit f02a3553c61a901d6ce98d1d5629be4c2a032cdf
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Jan 2 08:20:39 2022 -0500
+
+    ConditionPathExists=!/run/qubes-service/no-bootclockrandomization
+    ConditionPathExists=!/run/qubes-service/no-bcr
+
+commit f40cff332a68fa6312bea565636d864ff8dada15
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Dec 24 07:39:48 2021 -0500
+
+    bumped changelog version
+
 commit 3b8bee042b57ae2b0945265bcac3a5b4b7e54063
 Merge: b7b2ccf b594c70
 Author: Patrick Schleizer <adrelanos@whonix.org>
