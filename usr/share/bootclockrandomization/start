@@ -8,6 +8,9 @@ set -e
 source /usr/share/bootclockrandomization/shared
 
 do_start () {
+   log "Boot Clock Randomization"
+   log "https://www.kicksecure.com/wiki/Boot_Clock_Randomization"
+
    if [ -e "$FAIL_FILE" ]; then
       rm -f "$FAIL_FILE"
    fi
