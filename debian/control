@@ -6,9 +6,9 @@ Section: misc
 Priority: optional
 Maintainer: Patrick Schleizer <adrelanos@whonix.org>
 Build-Depends: debhelper (>= 13), debhelper-compat (= 13), dh-apparmor
-Homepage: https://www.whonix.org/wiki/Dev/TimeSync
-Vcs-Browser: https://github.com/Whonix/bootclockrandomization
-Vcs-Git: https://github.com/Whonix/bootclockrandomization.git
+Homepage: https://www.kicksecure.com/wiki/Dev/TimeSync
+Vcs-Browser: https://github.com/Kicksecure/bootclockrandomization
+Vcs-Git: https://github.com/Kicksecure/bootclockrandomization.git
 Standards-Version: 4.6.2
 Rules-Requires-Root: no
 
@@ -26,4 +26,4 @@ Description: Randomizes clock when systems boots
  .
  Runs before Tor / sdwdate (if installed).
  .
- See also: https://www.whonix.org/wiki/Dev/TimeSync
+ See also: https://www.kicksecure.com/wiki/Dev/TimeSync
