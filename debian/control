@@ -1,12 +1,12 @@
-## Copyright (C) 2012 - 2023 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
+## Copyright (C) 2012 - 2023 ENCRYPTED SUPPORT LP <adrelanos@kicksecure.com>
 ## See the file COPYING for copying conditions.
 
 Source: bootclockrandomization
 Section: misc
 Priority: optional
-Maintainer: Patrick Schleizer <adrelanos@whonix.org>
+Maintainer: Patrick Schleizer <adrelanos@kicksecure.com>
 Build-Depends: debhelper (>= 13), debhelper-compat (= 13), dh-apparmor
-Homepage: https://www.kicksecure.com/wiki/Dev/TimeSync
+Homepage: https://www.kicksecure.com/wiki/Boot_Clock_Randomization
 Vcs-Browser: https://github.com/Kicksecure/bootclockrandomization
 Vcs-Git: https://github.com/Kicksecure/bootclockrandomization.git
 Standards-Version: 4.6.2
@@ -26,4 +26,4 @@ Description: Randomizes clock when systems boots
  .
  Runs before Tor / sdwdate (if installed).
  .
- See also: https://www.kicksecure.com/wiki/Dev/TimeSync
+ See also: https://www.whonix.org/wiki/Dev/TimeSync
