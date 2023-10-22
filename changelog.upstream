@@ -1,3 +1,19 @@
+commit 185892b21ecd59d0865ec6f92671e385a031e005
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sun Oct 22 08:25:01 2023 -0400
+
+    Lower amount of boot clock randomization seconds in Qubes Template to +/-1 (and nanoseconds).
+    
+    Because sdwdate (or other time fixing mechanism) does not yet run in Template.
+    
+    https://forums.whonix.org/t/whonix-ws-16-template-fails-to-update-due-to-timing-issue/12739/31
+
+commit 6ea29198cb91f2ebd21fb3ec019c62b36b038555
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 29 16:03:40 2023 -0400
+
+    bumped changelog version
+
 commit 51fc6c670e3d25425c714fb6b09e8aaa503b0852
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Aug 29 16:01:26 2023 -0400
