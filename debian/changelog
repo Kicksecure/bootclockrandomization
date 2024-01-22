@@ -1,3 +1,9 @@
+bootclockrandomization (3:6.5-1) unstable; urgency=medium
+
+  * New upstream version (local package).
+
+ -- Patrick Schleizer <adrelanos@whonix.org>  Mon, 22 Jan 2024 12:36:48 +0000
+
 bootclockrandomization (3:6.4-1) unstable; urgency=medium
 
   * New upstream version (local package).
