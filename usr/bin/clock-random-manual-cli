@@ -4,7 +4,7 @@
 ## See the file COPYING for copying conditions.
 
 ## test:
-## echo "Fri Sep  30 22:20:00 UTC 2016" | /usr/bin/clock-random-manual-cli
+## printf '%s\n' "Fri Sep  30 22:20:00 UTC 2016" | /usr/bin/clock-random-manual-cli
 
 set -e
 
@@ -20,7 +20,7 @@ delay_plus_or_minus="30"
 
 mkdir -p "$DIR"
 
-echo "Enter current date. Example:
+printf '%s\n' "Enter current date. Example:
 Fri Sep  30 22:20:00 UTC 2016"
 
 read date_input_user
@@ -41,4 +41,9 @@ log "output: $NEW_TIME_HUMAN $NANOSECONDS"
 ## Set new time. Syntax: date --set @1396733199.112834496
 date --set "@$NEW_TIME.$NANOSECONDS" > /dev/null
 
-echo "Success, clock is now randomized!"
+printf '%s\n' "Success, clock is now randomized. Syncing hardware clock..."
+
+## Sync hardware clock with system clock.
+hwclock --systohc
+
+printf '%s\n' "Done."
