@@ -1,3 +1,22 @@
+commit 15a49e91057693cae063e0c20058a7595545488e
+Merge: ed7e30a 4721014
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Jul 11 10:56:07 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/hwclock'
+
+commit 4721014d673395753bddfd59c9cee22d42246458
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Jul 6 13:47:07 2025 -0500
+
+    Add hwclock sync, replace echo with printf
+
+commit ed7e30aed01448e0ab75ec6389b3beb2751f7578
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Jan 23 16:17:33 2025 +0000
+
+    bumped changelog version
+
 commit 5a5983caa70b6f0dd1b89b72526cb093ed6ea00a
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Thu Jan 23 11:09:17 2025 -0500
