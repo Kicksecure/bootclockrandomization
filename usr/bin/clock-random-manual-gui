@@ -9,7 +9,7 @@ title="Manual Clock Randomization"
 
 date_start="$(date)"
 
-if user_input=$(zenity \
+if user_input=$(yad \
    --entry \
    --title="$title" \
    --text="Please enter the time (in UTC!) in the following format.
