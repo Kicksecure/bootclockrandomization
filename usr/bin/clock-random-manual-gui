@@ -22,7 +22,7 @@ $date_start" \
 else
    type="info"
    msg="<p>Ok, aborted.</p>"
-   /usr/libexec/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$lefttop" "$icon"
+   /usr/libexec/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$icon"
    exit 3
 fi
 
@@ -33,7 +33,7 @@ if echo "$user_input" | sudo --non-interactive /usr/bin/clock-random-manual-cli 
 <br />$date_start
 <br />to (randomized):
 <br />$date_end.</p>"
-   /usr/libexec/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$lefttop" "$icon"
+   /usr/libexec/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$icon"
    exit 0
 else
    type="error"
@@ -42,6 +42,6 @@ else
 <br />
 <br />Please open a console and use:
 <br /><blockquote><code>sudo /usr/bin/clock-random-manual-cli</code></blockquote></p>"
-   /usr/libexec/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$lefttop" "$icon"
+   /usr/libexec/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$icon"
    exit 1
 fi
