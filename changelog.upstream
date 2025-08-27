@@ -1,8 +1,41 @@
+commit a731b1a494c8375f05ab7a72dff5236247f55578
+Merge: acd7b24 f961ef6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed Aug 27 05:01:36 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit f961ef60ad22b91dec17103fe846ec74021e746f
+Merge: 3ce50ad acd7b24
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Tue Aug 26 19:15:20 2025 -0500
+
+    Merge branch 'master' into arraybolt3/trixie
+
+commit acd7b24d303bf77ad619a450be54a8bde089040e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Aug 26 08:34:52 2025 +0000
+
+    bumped changelog version
+
 commit ea8aeba84d8bdc24f855ca402a31e9af89345601
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Tue Aug 26 04:34:51 2025 -0400
 
     re-generate man pages (generated using "genmkfile manpages")
+
+commit 3ce50ad53dd6528d531478797b1d20f8b61dbf7d
+Merge: 20f315b 514379a
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Thu Aug 21 19:38:21 2025 -0500
+
+    Merge branch 'master' into arraybolt3/trixie
+
+commit 20f315bbd7310720c44e27b7b95b9b02b1a0f428
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Sun Aug 17 19:50:28 2025 -0500
+
+    Remove Wayland-incompatible features from msgcollector
 
 commit 514379a56c4ec7b3ad788ca936bccf8883a5c681
 Merge: f273cea f3e56b8
