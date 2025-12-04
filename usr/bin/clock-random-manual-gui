@@ -9,6 +9,9 @@ title="Manual Clock Randomization"
 
 date_start="$(LC_ALL=C date)"
 
+## TODO
+icon=""
+
 if user_input=$(yad \
    --entry \
    --title="$title" \

@@ -8,12 +8,12 @@
 
 set -e
 
-delay_plus_or_minus="30"
+#delay_plus_or_minus="30"
 
 printf '%s\n' "Enter current date. Example:
 Fri Sep  30 22:20:00 UTC 2016"
 
-read date_input_user
+read -r date_input_user
 
 ## Example date_input:
 ## Fri Sep  30 22:20:00 UTC 2016
