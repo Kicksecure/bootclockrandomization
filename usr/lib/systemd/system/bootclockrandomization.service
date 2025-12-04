@@ -20,7 +20,7 @@ ConditionVirtualization=!systemd-nspawn
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/share/bootclockrandomization/start
+ExecStart=/usr/bin/bootclockrandomization
 
 [Install]
 WantedBy=multi-user.target
