@@ -88,7 +88,7 @@ get_random_time() {
    #NEW_TIME_HUMAN="$(LC_ALL=C date --date "@$NEW_TIME")"
 }
 
-do_start () {
+bootclockrandomization () {
    log "Boot Clock Randomization"
    log "https://www.kicksecure.com/wiki/Boot_Clock_Randomization"
 
@@ -127,5 +127,5 @@ else
    set -e
    set -o errtrace
    set -o pipefail
-   do_start
+   bootclockrandomization
 fi
