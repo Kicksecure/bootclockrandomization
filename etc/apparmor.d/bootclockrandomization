@@ -3,7 +3,7 @@
 
 #include <tunables/global>
 
-profile bootclockrandomization /usr/share/bootclockrandomization/* flags=(attach_disconnected) {
+profile bootclockrandomization /usr/bin/bootclockrandomization flags=(attach_disconnected) {
   #include <abstractions/base>
   #include <abstractions/bash>
 
@@ -25,9 +25,6 @@ profile bootclockrandomization /usr/share/bootclockrandomization/* flags=(attach
 
   owner /etc/nsswitch.conf r,
   owner /etc/passwd r,
-
-  owner /run/bootclockrandomization/{fail,success} w,
-  owner /usr/share/bootclockrandomization/* r,
 
   /dev/tty rw,
 
