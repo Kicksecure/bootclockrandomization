@@ -16,38 +16,38 @@ date_start="$(LC_ALL=C date)"
 icon=""
 
 if user_input=$(yad \
-   --entry \
-   --title="$title" \
-   --text="Please enter the time (in UTC!) in the following format.
+  --entry \
+  --title="$title" \
+  --text="Please enter the time (in UTC!) in the following format.
 
 Example:
 $date_start" \
-   --entry-text "$date_start")
+  --entry-text "$date_start")
   then \
-     true "yad entry ok."
+    true "yad entry ok."
 else
-   type="info"
-   msg="<p>Ok, aborted.</p>"
-   /usr/libexec/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$icon"
-   exit 3
+  type="info"
+  msg="<p>Ok, aborted.</p>"
+  /usr/libexec/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$icon"
+  exit 3
 fi
 
 if printf '%s\n' "$user_input" | sudo --non-interactive /usr/bin/clock-random-manual-cli ; then
-   date_end="$(LC_ALL=C date)"
-   type="info"
-   msg="<p>Success, date set from (user input):
+  date_end="$(LC_ALL=C date)"
+  type="info"
+  msg="<p>Success, date set from (user input):
 <br />$date_start
 <br />to (randomized):
 <br />$date_end.</p>"
-   /usr/libexec/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$icon"
-   exit 0
+  /usr/libexec/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$icon"
+  exit 0
 else
-   type="error"
-   msg="<p>ERROR!
+  type="error"
+  msg="<p>ERROR!
 <br />Please report this bug!
 <br />
 <br />Please open a console and use:
 <br /><blockquote><code>sudo /usr/bin/clock-random-manual-cli</code></blockquote></p>"
-   /usr/libexec/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$icon"
-   exit 1
+  /usr/libexec/msgcollector/msgdispatcher_dispatch_x "$type" "$title" "$msg" "$icon"
+  exit 1
 fi
