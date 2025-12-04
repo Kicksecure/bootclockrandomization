@@ -97,9 +97,10 @@ do_start () {
    ## Because sdwdate (or other time fixing mechanism) does not yet run in Template.
    ## https://forums.whonix.org/t/whonix-ws-16-template-fails-to-update-due-to-timing-issue/12739/31
    if test -f /run/qubes/this-is-templatevm ; then
-      : ${delay_plus_or_minus:="1"}
+      delay_plus_or_minus=1
+   else
+      delay_plus_or_minus=180
    fi
-   : ${delay_plus_or_minus:="180"}
 
    get_random_time
 
