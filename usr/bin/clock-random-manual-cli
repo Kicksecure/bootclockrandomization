@@ -20,7 +20,7 @@ trap "error_handler" ERR
 
 delay_plus_or_minus="30"
 
-if [ "$1" = "" ]; then
+if [ $# -eq 0 ]; then
   printf '%s\n' "Enter current date. Example:
   $(LC_ALL=C date)"
   read -r date_input_user
