@@ -7,7 +7,7 @@ set -e
 
 title="Manual Clock Randomization"
 
-date_start="$(date)"
+date_start="$(LC_ALL=C date)"
 
 if user_input=$(yad \
    --entry \
@@ -26,8 +26,8 @@ else
    exit 3
 fi
 
-if echo "$user_input" | sudo --non-interactive /usr/bin/clock-random-manual-cli ; then
-   date_end="$(date)"
+if printf '%s\n' "$user_input" | sudo --non-interactive /usr/bin/clock-random-manual-cli ; then
+   date_end="$(LC_ALL=C date)"
    type="info"
    msg="<p>Success, date set from (user input):
 <br />$date_start

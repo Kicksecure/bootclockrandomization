@@ -12,10 +12,10 @@ do_start () {
    log "https://www.kicksecure.com/wiki/Boot_Clock_Randomization"
 
    if [ -e "$FAIL_FILE" ]; then
-      rm -f "$FAIL_FILE"
+      rm -f -- "$FAIL_FILE"
    fi
    if [ -e "$SUCCESS_FILE" ]; then
-      rm -f "$SUCCESS_FILE"
+      rm -f -- "$SUCCESS_FILE"
    fi
 
    ## Lower in Qubes Template.
@@ -28,21 +28,21 @@ do_start () {
 
    get_random_time
 
-   ## Set new time. Syntax: date --set @1396733199.112834496
-   date --set "@$NEW_TIME.$NANOSECONDS" > /dev/null
+   ## Set new time. Syntax: LC_ALL=C date --set @1396733199.112834496
+   LC_ALL=C date --set "@$NEW_TIME.$NANOSECONDS" > /dev/null
 
    ## Testing the `date` syntax:
-   ## sudo date --set @1396733199.112834496 ; date +%s.%N
+   ## sudo LC_ALL=C date --set @1396733199.112834496 ; LC_ALL=C date +%s.%N
    ## Sat Apr  5 21:26:39 UTC 2014
    ## 1396733199.114119019
-   ## sudo date --set @1396733199.112834496 ; date +%s.%N
+   ## sudo LC_ALL=C date --set @1396733199.112834496 ; LC_ALL=C date +%s.%N
    ## Sat Apr  5 21:26:39 UTC 2014
    ## 1396733199.114122807
 
    log "Changed time from $OLD_TIME ($OLD_TIME_NANOSECONDS)"
-   log "               to $(date) ($(date +%s.%N))."
+   log "               to $(LC_ALL=C date) ($(LC_ALL=C date +%s.%N))."
 
-   touch "$SUCCESS_FILE"
+   touch -- "$SUCCESS_FILE"
    return 0
 }
 

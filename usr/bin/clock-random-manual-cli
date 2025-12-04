@@ -28,7 +28,7 @@ read date_input_user
 ## Example date_input:
 ## Fri Sep  30 22:20:00 UTC 2016
 
-date_input_unixtime="$(date --date "$date_input_user" +%s)"
+date_input_unixtime="$(LC_ALL=C date --date "$date_input_user" +%s)"
 
 log "input: $date_input_user 000000000"
 
@@ -38,8 +38,8 @@ get_random_time
 
 log "output: $NEW_TIME_HUMAN $NANOSECONDS"
 
-## Set new time. Syntax: date --set @1396733199.112834496
-date --set "@$NEW_TIME.$NANOSECONDS" > /dev/null
+## Set new time. Syntax: LC_ALL=C date --set @1396733199.112834496
+LC_ALL=C date --set "@$NEW_TIME.$NANOSECONDS" > /dev/null
 
 printf '%s\n' "Success, clock is now randomized. Syncing hardware clock..."
 

@@ -13,7 +13,7 @@ FAIL_FILE=$DIR/fail
 SUCCESS_FILE=$DIR/success
 
 log() {
-   echo "$@"
+   printf '%s\n' "$@"
 }
 
 error_handler() {
@@ -82,16 +82,16 @@ get_random_time() {
    ## OLD_TIME will be set when called by clock-random-manual-cli.
    ## OLD_TIME will not be set when called by bootclockrandomization.
    if [ "$OLD_TIME" = "" ]; then
-      OLD_TIME="$(date)"
+      OLD_TIME="$(LC_ALL=C date)"
       true "Setting OLD_TIME to $OLD_TIME."
-      OLD_TIME_NANOSECONDS="$(date +%s.%N)"
-      OLD_UNIXTIME="$(date +%s)"
+      OLD_TIME_NANOSECONDS="$(LC_ALL=C date +%s.%N)"
+      OLD_UNIXTIME="$(LC_ALL=C date +%s)"
    else
       true "OLD_TIME already set to $OLD_TIME."
-      OLD_TIME_NANOSECONDS="$(date --date "@$OLD_TIME" +%s.%N)"
-      OLD_UNIXTIME="$(date --date "@$OLD_TIME" +%s)"
+      OLD_TIME_NANOSECONDS="$(LC_ALL=C date --date "@$OLD_TIME" +%s.%N)"
+      OLD_UNIXTIME="$(LC_ALL=C date --date "@$OLD_TIME" +%s)"
    fi
 
    NEW_TIME="$(( $OLD_UNIXTIME $PLUS_OR_MINUS $DELAY ))"
-   NEW_TIME_HUMAN="$(date --date "@$NEW_TIME")"
+   NEW_TIME_HUMAN="$(LC_ALL=C date --date "@$NEW_TIME")"
 }

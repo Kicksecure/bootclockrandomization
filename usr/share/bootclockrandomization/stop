@@ -9,10 +9,10 @@ source /usr/share/bootclockrandomization/shared
 
 do_stop() {
    if [ -e "$FAIL_FILE" ]; then
-      rm -f "$FAIL_FILE"
+      rm -f -- "$FAIL_FILE"
    fi
    if [ -e "$SUCCESS_FILE" ]; then
-      rm -f "$SUCCESS_FILE"
+      rm -f -- "$SUCCESS_FILE"
    fi
 }
 
