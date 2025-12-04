@@ -8,8 +8,6 @@
 
 set -e
 
-source /usr/share/bootclockrandomization/shared
-
 delay_plus_or_minus="30"
 
 printf '%s\n' "Enter current date. Example:
