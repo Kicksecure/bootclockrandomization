@@ -83,8 +83,13 @@ get_random_time() {
 
    ## shellcheck does not like using a variable ('PLUS_OR_MINUS')
    ## as arithmetic symbol.
-   # shellcheck disable=SC1102
-   NEW_TIME="$(( OLD_UNIXTIME PLUS_OR_MINUS DELAY ))"
+   if [ "$PLUS_OR_MINUS" = "+" ]; then
+      NEW_TIME="$(( OLD_UNIXTIME + DELAY ))"
+   elif [ "$PLUS_OR_MINUS" = "-" ]; then
+      NEW_TIME="$(( OLD_UNIXTIME - DELAY ))"
+   else
+      error "PLUS_OR_MINUS is either plus nor minus."
+   fi
    #NEW_TIME_HUMAN="$(LC_ALL=C date --date "@$NEW_TIME")"
 }
 
