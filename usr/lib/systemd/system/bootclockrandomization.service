@@ -21,7 +21,6 @@ ConditionVirtualization=!systemd-nspawn
 Type=oneshot
 RemainAfterExit=yes
 ExecStart=/usr/share/bootclockrandomization/start
-ExecStop=/usr/share/bootclockrandomization/stop
 
 [Install]
 WantedBy=multi-user.target

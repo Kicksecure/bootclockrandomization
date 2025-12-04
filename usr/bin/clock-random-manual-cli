@@ -10,15 +10,7 @@ set -e
 
 source /usr/share/bootclockrandomization/shared
 
-NAME=clock-random-manual
-DIR=/run/$NAME
-FAIL_FILE=$DIR/fail
-SUCCESS_FILE=$DIR/success
-LOG=/var/log/$NAME.log
-
 delay_plus_or_minus="30"
-
-mkdir -p "$DIR"
 
 printf '%s\n' "Enter current date. Example:
 Fri Sep  30 22:20:00 UTC 2016"
