@@ -86,7 +86,7 @@ get_random_time() {
    fi
 
    NEW_TIME="$(( $OLD_UNIXTIME $PLUS_OR_MINUS $DELAY ))"
-   NEW_TIME_HUMAN="$(LC_ALL=C date --date "@$NEW_TIME")"
+   #NEW_TIME_HUMAN="$(LC_ALL=C date --date "@$NEW_TIME")"
 }
 
 do_start () {
