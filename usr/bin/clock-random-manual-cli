@@ -9,6 +9,7 @@
 set -e
 
 ## provides: get_random_time
+# shellcheck source=./usr/bin/bootclockrandomization
 source /usr/bin/bootclockrandomization
 
 delay_plus_or_minus="30"
