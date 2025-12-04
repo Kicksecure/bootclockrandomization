@@ -4,132 +4,132 @@
 ## See the file COPYING for copying conditions.
 
 error_handler() {
-   local exit_code="$?"
-   printf '%s\n' "ERROR: exit_code: $exit_code | BASH_COMMAND: $BASH_COMMAND"
-   exit 1
+  local exit_code="$?"
+  printf '%s\n' "ERROR: exit_code: $exit_code | BASH_COMMAND: $BASH_COMMAND"
+  exit 1
 }
 
 if [ "$(id -u)" != "0" ]; then
-   printf '%s\n' "ERROR: $0 be run as root (sudo)! Use: sudo $0"
-   exit 3
+  printf '%s\n' "ERROR: $0 be run as root (sudo)! Use: sudo $0"
+  exit 3
 fi
 
 get_random_time() {
-   ## Get a random 0 or 1.
-   ## Will use this to decide to use plus or minus.
-   ##
-   ## Thanks to
-   ## http://linux.byexamples.com/archives/128/generating-random-numbers/
-   ZERO_OR_ONE="$(( 0+($(od -An -N2 -i /dev/random) )%(0+2) ))"
+  ## Get a random 0 or 1.
+  ## Will use this to decide to use plus or minus.
+  ##
+  ## Thanks to
+  ## http://linux.byexamples.com/archives/128/generating-random-numbers/
+  ZERO_OR_ONE="$(( 0+($(od -An -N2 -i /dev/random) )%(0+2) ))"
 
-   ## Create a random number between 0 and $delay_plus_or_minus.
-   ## delay_plus_or_minus is  30 for clock-random-manual.
-   ## delay_plus_or_minus is 180 for bootclockrandomization.
-   DELAY="$(( $(od -An -N2 -i /dev/random)%(delay_plus_or_minus-0+1) ))"
+  ## Create a random number between 0 and $delay_plus_or_minus.
+  ## delay_plus_or_minus is  30 for clock-random-manual.
+  ## delay_plus_or_minus is 180 for bootclockrandomization.
+  DELAY="$(( $(od -An -N2 -i /dev/random)%(delay_plus_or_minus-0+1) ))"
 
-   ## Create a random number between 0 and 999999999.
-   ##
-   ## Thanks to
-   ## https://stackoverflow.com/questions/22887891/how-can-i-get-a-random-dev-random-number-between-0-and-999999999-in-bash
-   NANOSECONDS="$(shuf -i0-999999999 -n1 --random-source=/dev/random)"
+  ## Create a random number between 0 and 999999999.
+  ##
+  ## Thanks to
+  ## https://stackoverflow.com/questions/22887891/how-can-i-get-a-random-dev-random-number-between-0-and-999999999-in-bash
+  NANOSECONDS="$(shuf -i0-999999999 -n1 --random-source=/dev/random)"
 
-   ## Examples NANOSECONDS:
-   ## 117752805
-   ## 38653957
+  ## Examples NANOSECONDS:
+  ## 117752805
+  ## 38653957
 
-   ## Add leading zeros, because `date` expects 9 digits.
-   NANOSECONDS="$(printf '%0*d\n' 9 "$NANOSECONDS")"
+  ## Add leading zeros, because `date` expects 9 digits.
+  NANOSECONDS="$(printf '%0*d\n' 9 "$NANOSECONDS")"
 
-   ## Using
-   ## printf '%0*d\n' 9 "38653957"
-   ##  38653957
-   ## becomes
-   ## 038653957
+  ## Using
+  ## printf '%0*d\n' 9 "38653957"
+  ##  38653957
+  ## becomes
+  ## 038653957
 
-   ## Examples NANOSECONDS:
-   ## 117752805
-   ## 038653957
+  ## Examples NANOSECONDS:
+  ## 117752805
+  ## 038653957
 
-   if [ "$ZERO_OR_ONE" = "0" ]; then
-      PLUS_OR_MINUS="-"
-   elif [ "$ZERO_OR_ONE" = "1" ]; then
-      PLUS_OR_MINUS="+"
-   else
-      printf '%s\n' "ERROR: ZERO_OR_ONE is neither 0 nor 1, it's: $ZERO_OR_ONE"
-      printf '%s\n' "       Please report this bug!"
-      return 2
-   fi
+  if [ "$ZERO_OR_ONE" = "0" ]; then
+    PLUS_OR_MINUS="-"
+  elif [ "$ZERO_OR_ONE" = "1" ]; then
+    PLUS_OR_MINUS="+"
+  else
+    printf '%s\n' "ERROR: ZERO_OR_ONE is neither 0 nor 1, it's: $ZERO_OR_ONE"
+    printf '%s\n' "       Please report this bug!"
+    return 2
+  fi
 
-   printf '%s\n' "$PLUS_OR_MINUS $DELAY $NANOSECONDS"
+  printf '%s\n' "$PLUS_OR_MINUS $DELAY $NANOSECONDS"
 
-   ## OLD_TIME_HUMAN will be set when called by clock-random-manual-cli.
-   ## OLD_TIME_HUMAN will not be set when called by bootclockrandomization.
-   if [ "$OLD_TIME_HUMAN" = "" ]; then
-      OLD_TIME_HUMAN="$(LC_ALL=C date)"
-      true "Setting OLD_TIME_HUMAN to $OLD_TIME_HUMAN."
-      OLD_TIME_NANOSECONDS="$(LC_ALL=C date +%s.%N)"
-      OLD_UNIXTIME="$(LC_ALL=C date +%s)"
-   else
-      true "OLD_TIME_HUMAN already set to $OLD_TIME_HUMAN."
-      OLD_TIME_NANOSECONDS="$(LC_ALL=C date --date "$OLD_TIME_HUMAN" +%s.%N)"
-      OLD_UNIXTIME="$(LC_ALL=C date --date "$OLD_TIME_HUMAN" +%s)"
-   fi
+  ## OLD_TIME_HUMAN will be set when called by clock-random-manual-cli.
+  ## OLD_TIME_HUMAN will not be set when called by bootclockrandomization.
+  if [ "$OLD_TIME_HUMAN" = "" ]; then
+    OLD_TIME_HUMAN="$(LC_ALL=C date)"
+    true "Setting OLD_TIME_HUMAN to $OLD_TIME_HUMAN."
+    OLD_TIME_NANOSECONDS="$(LC_ALL=C date +%s.%N)"
+    OLD_UNIXTIME="$(LC_ALL=C date +%s)"
+  else
+    true "OLD_TIME_HUMAN already set to $OLD_TIME_HUMAN."
+    OLD_TIME_NANOSECONDS="$(LC_ALL=C date --date "$OLD_TIME_HUMAN" +%s.%N)"
+    OLD_UNIXTIME="$(LC_ALL=C date --date "$OLD_TIME_HUMAN" +%s)"
+  fi
 
-   ## shellcheck does not like using a variable ('PLUS_OR_MINUS')
-   ## as arithmetic symbol.
-   if [ "$PLUS_OR_MINUS" = "+" ]; then
-      NEW_TIME_UNIXTIME="$(( OLD_UNIXTIME + DELAY ))"
-   elif [ "$PLUS_OR_MINUS" = "-" ]; then
-      NEW_TIME_UNIXTIME="$(( OLD_UNIXTIME - DELAY ))"
-   else
-      error "PLUS_OR_MINUS is either plus nor minus."
-   fi
+  ## shellcheck does not like using a variable ('PLUS_OR_MINUS')
+  ## as arithmetic symbol.
+  if [ "$PLUS_OR_MINUS" = "+" ]; then
+     NEW_TIME_UNIXTIME="$(( OLD_UNIXTIME + DELAY ))"
+  elif [ "$PLUS_OR_MINUS" = "-" ]; then
+    NEW_TIME_UNIXTIME="$(( OLD_UNIXTIME - DELAY ))"
+  else
+    error "PLUS_OR_MINUS is either plus nor minus."
+  fi
 
-   if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
-      ## Only needed if executed by 'clock-random-manual-cli'.
-      NEW_TIME_HUMAN="$(LC_ALL=C date --date "@$NEW_TIME_UNIXTIME")"
-   fi
+  if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
+    ## Only needed if executed by 'clock-random-manual-cli'.
+    NEW_TIME_HUMAN="$(LC_ALL=C date --date "@$NEW_TIME_UNIXTIME")"
+  fi
 }
 
 bootclockrandomization () {
-   printf '%s\n' "Boot Clock Randomization"
-   printf '%s\n' "https://www.kicksecure.com/wiki/Boot_Clock_Randomization"
+  printf '%s\n' "Boot Clock Randomization"
+  printf '%s\n' "https://www.kicksecure.com/wiki/Boot_Clock_Randomization"
 
-   ## Lower in Qubes Template.
-   ## Because sdwdate (or other time fixing mechanism) does not yet run in Template.
-   ## https://forums.whonix.org/t/whonix-ws-16-template-fails-to-update-due-to-timing-issue/12739/31
-   if test -f /run/qubes/this-is-templatevm ; then
-      delay_plus_or_minus=1
-   else
-      delay_plus_or_minus=180
-   fi
+  ## Lower in Qubes Template.
+  ## Because sdwdate (or other time fixing mechanism) does not yet run in Template.
+  ## https://forums.whonix.org/t/whonix-ws-16-template-fails-to-update-due-to-timing-issue/12739/31
+  if test -f /run/qubes/this-is-templatevm ; then
+    delay_plus_or_minus=1
+  else
+    delay_plus_or_minus=180
+  fi
 
-   get_random_time
+  get_random_time
 
-   ## Set new time. Syntax: LC_ALL=C date --set @1396733199.112834496
-   LC_ALL=C date --set "@$NEW_TIME_UNIXTIME.$NANOSECONDS" > /dev/null
+  ## Set new time. Syntax: LC_ALL=C date --set @1396733199.112834496
+  LC_ALL=C date --set "@$NEW_TIME_UNIXTIME.$NANOSECONDS" > /dev/null
 
-   ## Testing the `date` syntax:
-   ## sudo LC_ALL=C date --set @1396733199.112834496 ; LC_ALL=C date +%s.%N
-   ## Sat Apr  5 21:26:39 UTC 2014
-   ## 1396733199.114119019
-   ## sudo LC_ALL=C date --set @1396733199.112834496 ; LC_ALL=C date +%s.%N
-   ## Sat Apr  5 21:26:39 UTC 2014
-   ## 1396733199.114122807
+  ## Testing the `date` syntax:
+  ## sudo LC_ALL=C date --set @1396733199.112834496 ; LC_ALL=C date +%s.%N
+  ## Sat Apr  5 21:26:39 UTC 2014
+  ## 1396733199.114119019
+  ## sudo LC_ALL=C date --set @1396733199.112834496 ; LC_ALL=C date +%s.%N
+  ## Sat Apr  5 21:26:39 UTC 2014
+  ## 1396733199.114122807
 
-   printf '%s\n' "Changed time from $OLD_TIME_HUMAN ($OLD_TIME_NANOSECONDS)"
-   printf '%s\n' "               to $(LC_ALL=C date) ($(LC_ALL=C date +%s.%N))."
+  printf '%s\n' "Changed time from $OLD_TIME_HUMAN ($OLD_TIME_NANOSECONDS)"
+  printf '%s\n' "               to $(LC_ALL=C date) ($(LC_ALL=C date +%s.%N))."
 
-   return 0
+  return 0
 }
 
 if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
-   true "INFO: Script was sourced."
+  true "INFO: Script was sourced."
 else
-   true "INFO: Script was executed."
-   set -e
-   set -o errtrace
-   set -o pipefail
-   trap "error_handler" ERR
-   bootclockrandomization
+  true "INFO: Script was executed."
+  set -e
+  set -o errtrace
+  set -o pipefail
+  trap "error_handler" ERR
+  bootclockrandomization
 fi
