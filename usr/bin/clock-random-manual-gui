@@ -21,7 +21,7 @@ Example:
 $date_start" \
    --entry-text "$date_start")
   then \
-     true "zentry entry ok."
+     true "yad entry ok."
 else
    type="info"
    msg="<p>Ok, aborted.</p>"
