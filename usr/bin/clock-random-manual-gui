@@ -4,6 +4,9 @@
 ## See the file COPYING for copying conditions.
 
 set -e
+set -o nounset
+set -o pipefail
+set -o errtrace
 
 title="Manual Clock Randomization"
 

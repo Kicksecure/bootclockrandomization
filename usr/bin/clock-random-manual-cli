@@ -7,37 +7,48 @@
 ## printf '%s\n' "Fri Sep  30 22:20:00 UTC 2016" | /usr/bin/clock-random-manual-cli
 
 set -e
+set -o nounset
+set -o pipefail
+set -o errtrace
 
 ## provides: get_random_time
+## provides: error_handler
 # shellcheck source=./usr/bin/bootclockrandomization
 source /usr/bin/bootclockrandomization
 
+trap "error_handler" ERR
+
 delay_plus_or_minus="30"
 
-printf '%s\n' "Enter current date. Example:
-Fri Sep  30 22:20:00 UTC 2016"
-
-read -r date_input_user
+if [ "$1" = "" ]; then
+  printf '%s\n' "Enter current date. Example:
+  $(LC_ALL=C date)"
+  read -r date_input_user
+else
+  date_input_user="$@"
+fi
 
 ## Example date_input:
 ## Fri Sep  30 22:20:00 UTC 2016
 
-date_input_unixtime="$(LC_ALL=C date --date "$date_input_user" +%s)"
+printf '%s\n' "date_input_user: '$date_input_user'"
 
-printf '%s\n' "input: $date_input_user 000000000"
-
-OLD_TIME="$date_input_unixtime"
+OLD_TIME_HUMAN="$date_input_user"
 
 get_random_time
 
-printf '%s\n' "output: $NEW_TIME_HUMAN $NANOSECONDS"
+printf '%s\n' "output: '$NEW_TIME_HUMAN' '$NANOSECONDS'"
+
+printf '%s\n' "EXECUTING: LC_ALL=C date --set '@$NEW_TIME_UNIXTIME.$NANOSECONDS'"
 
 ## Set new time. Syntax: LC_ALL=C date --set @1396733199.112834496
-LC_ALL=C date --set "@$NEW_TIME.$NANOSECONDS" > /dev/null
+LC_ALL=C date --set "@$NEW_TIME_UNIXTIME.$NANOSECONDS" #> /dev/null
 
 printf '%s\n' "Success, clock is now randomized. Syncing hardware clock..."
 
 ## Sync hardware clock with system clock.
-hwclock --systohc
-
-printf '%s\n' "Done."
+if hwclock --systohc 2>/dev/null; then
+  printf '%s\n' "Done."
+else
+  printf '%s\n' "Hardware clock unavailable. This is normal inside VMs."
+fi

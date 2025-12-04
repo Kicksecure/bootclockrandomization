@@ -9,8 +9,6 @@ error_handler() {
    exit 1
 }
 
-trap "error_handler" ERR
-
 if [ "$(id -u)" != "0" ]; then
    printf '%s\n' "ERROR: $0 be run as root (sudo)! Use: sudo $0"
    exit 3
@@ -73,20 +71,24 @@ get_random_time() {
       OLD_UNIXTIME="$(LC_ALL=C date +%s)"
    else
       true "OLD_TIME_HUMAN already set to $OLD_TIME_HUMAN."
-      OLD_TIME_NANOSECONDS="$(LC_ALL=C date --date "@$OLD_TIME_HUMAN" +%s.%N)"
-      OLD_UNIXTIME="$(LC_ALL=C date --date "@$OLD_TIME_HUMAN" +%s)"
+      OLD_TIME_NANOSECONDS="$(LC_ALL=C date --date "$OLD_TIME_HUMAN" +%s.%N)"
+      OLD_UNIXTIME="$(LC_ALL=C date --date "$OLD_TIME_HUMAN" +%s)"
    fi
 
    ## shellcheck does not like using a variable ('PLUS_OR_MINUS')
    ## as arithmetic symbol.
    if [ "$PLUS_OR_MINUS" = "+" ]; then
-      NEW_TIME="$(( OLD_UNIXTIME + DELAY ))"
+      NEW_TIME_UNIXTIME="$(( OLD_UNIXTIME + DELAY ))"
    elif [ "$PLUS_OR_MINUS" = "-" ]; then
-      NEW_TIME="$(( OLD_UNIXTIME - DELAY ))"
+      NEW_TIME_UNIXTIME="$(( OLD_UNIXTIME - DELAY ))"
    else
       error "PLUS_OR_MINUS is either plus nor minus."
    fi
-   #NEW_TIME_HUMAN="$(LC_ALL=C date --date "@$NEW_TIME")"
+
+   if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
+      ## Only needed if executed by 'clock-random-manual-cli'.
+      NEW_TIME_HUMAN="$(LC_ALL=C date --date "@$NEW_TIME_UNIXTIME")"
+   fi
 }
 
 bootclockrandomization () {
@@ -105,7 +107,7 @@ bootclockrandomization () {
    get_random_time
 
    ## Set new time. Syntax: LC_ALL=C date --set @1396733199.112834496
-   LC_ALL=C date --set "@$NEW_TIME.$NANOSECONDS" > /dev/null
+   LC_ALL=C date --set "@$NEW_TIME_UNIXTIME.$NANOSECONDS" > /dev/null
 
    ## Testing the `date` syntax:
    ## sudo LC_ALL=C date --set @1396733199.112834496 ; LC_ALL=C date +%s.%N
@@ -128,5 +130,6 @@ else
    set -e
    set -o errtrace
    set -o pipefail
+   trap "error_handler" ERR
    bootclockrandomization
 fi
