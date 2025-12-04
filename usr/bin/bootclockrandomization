@@ -3,20 +3,16 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-log() {
-   printf '%s\n' "$@"
-}
-
 error_handler() {
    local exit_code="$?"
-   log "ERROR: exit_code: $exit_code | BASH_COMMAND: $BASH_COMMAND"
+   printf '%s\n' "ERROR: exit_code: $exit_code | BASH_COMMAND: $BASH_COMMAND"
    exit 1
 }
 
 trap "error_handler" ERR
 
 if [ "$(id -u)" != "0" ]; then
-   log "ERROR: $0 be run as root (sudo)! Use: sudo $0"
+   printf '%s\n' "ERROR: $0 be run as root (sudo)! Use: sudo $0"
    exit 3
 fi
 
@@ -61,12 +57,12 @@ get_random_time() {
    elif [ "$ZERO_OR_ONE" = "1" ]; then
       PLUS_OR_MINUS="+"
    else
-      log "ERROR: ZERO_OR_ONE is neither 0 nor 1, it's: $ZERO_OR_ONE"
-      log "       Please report this bug!"
+      printf '%s\n' "ERROR: ZERO_OR_ONE is neither 0 nor 1, it's: $ZERO_OR_ONE"
+      printf '%s\n' "       Please report this bug!"
       return 2
    fi
 
-   log "$PLUS_OR_MINUS $DELAY $NANOSECONDS"
+   printf '%s\n' "$PLUS_OR_MINUS $DELAY $NANOSECONDS"
 
    ## OLD_TIME will be set when called by clock-random-manual-cli.
    ## OLD_TIME will not be set when called by bootclockrandomization.
@@ -94,8 +90,8 @@ get_random_time() {
 }
 
 bootclockrandomization () {
-   log "Boot Clock Randomization"
-   log "https://www.kicksecure.com/wiki/Boot_Clock_Randomization"
+   printf '%s\n' "Boot Clock Randomization"
+   printf '%s\n' "https://www.kicksecure.com/wiki/Boot_Clock_Randomization"
 
    ## Lower in Qubes Template.
    ## Because sdwdate (or other time fixing mechanism) does not yet run in Template.
@@ -119,8 +115,8 @@ bootclockrandomization () {
    ## Sat Apr  5 21:26:39 UTC 2014
    ## 1396733199.114122807
 
-   log "Changed time from $OLD_TIME ($OLD_TIME_NANOSECONDS)"
-   log "               to $(LC_ALL=C date) ($(LC_ALL=C date +%s.%N))."
+   printf '%s\n' "Changed time from $OLD_TIME ($OLD_TIME_NANOSECONDS)"
+   printf '%s\n' "               to $(LC_ALL=C date) ($(LC_ALL=C date +%s.%N))."
 
    return 0
 }
