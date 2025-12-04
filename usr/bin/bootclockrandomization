@@ -3,7 +3,7 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-if [ "${BASH_SOURCE}" != "${0}" ]; then
+if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
    true "INFO: Script was sourced."
 else
    true "INFO: Script was executed."
