@@ -64,17 +64,17 @@ get_random_time() {
 
    printf '%s\n' "$PLUS_OR_MINUS $DELAY $NANOSECONDS"
 
-   ## OLD_TIME will be set when called by clock-random-manual-cli.
-   ## OLD_TIME will not be set when called by bootclockrandomization.
-   if [ "$OLD_TIME" = "" ]; then
-      OLD_TIME="$(LC_ALL=C date)"
-      true "Setting OLD_TIME to $OLD_TIME."
+   ## OLD_TIME_HUMAN will be set when called by clock-random-manual-cli.
+   ## OLD_TIME_HUMAN will not be set when called by bootclockrandomization.
+   if [ "$OLD_TIME_HUMAN" = "" ]; then
+      OLD_TIME_HUMAN="$(LC_ALL=C date)"
+      true "Setting OLD_TIME_HUMAN to $OLD_TIME_HUMAN."
       OLD_TIME_NANOSECONDS="$(LC_ALL=C date +%s.%N)"
       OLD_UNIXTIME="$(LC_ALL=C date +%s)"
    else
-      true "OLD_TIME already set to $OLD_TIME."
-      OLD_TIME_NANOSECONDS="$(LC_ALL=C date --date "@$OLD_TIME" +%s.%N)"
-      OLD_UNIXTIME="$(LC_ALL=C date --date "@$OLD_TIME" +%s)"
+      true "OLD_TIME_HUMAN already set to $OLD_TIME_HUMAN."
+      OLD_TIME_NANOSECONDS="$(LC_ALL=C date --date "@$OLD_TIME_HUMAN" +%s.%N)"
+      OLD_UNIXTIME="$(LC_ALL=C date --date "@$OLD_TIME_HUMAN" +%s)"
    fi
 
    ## shellcheck does not like using a variable ('PLUS_OR_MINUS')
@@ -115,7 +115,7 @@ bootclockrandomization () {
    ## Sat Apr  5 21:26:39 UTC 2014
    ## 1396733199.114122807
 
-   printf '%s\n' "Changed time from $OLD_TIME ($OLD_TIME_NANOSECONDS)"
+   printf '%s\n' "Changed time from $OLD_TIME_HUMAN ($OLD_TIME_NANOSECONDS)"
    printf '%s\n' "               to $(LC_ALL=C date) ($(LC_ALL=C date +%s.%N))."
 
    return 0
