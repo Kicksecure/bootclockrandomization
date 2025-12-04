@@ -20,13 +20,13 @@ read date_input_user
 
 date_input_unixtime="$(LC_ALL=C date --date "$date_input_user" +%s)"
 
-log "input: $date_input_user 000000000"
+printf '%s\n' "input: $date_input_user 000000000"
 
 OLD_TIME="$date_input_unixtime"
 
 get_random_time
 
-log "output: $NEW_TIME_HUMAN $NANOSECONDS"
+printf '%s\n' "output: $NEW_TIME_HUMAN $NANOSECONDS"
 
 ## Set new time. Syntax: LC_ALL=C date --set @1396733199.112834496
 LC_ALL=C date --set "@$NEW_TIME.$NANOSECONDS" > /dev/null
